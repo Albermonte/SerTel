@@ -1,0 +1,44 @@
+:root {
+  --color-orange: #fc8702;
+  --color-green: #21bca5;
+  --color-blue: #0582ca;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main {
+  width: 600px;
+  display: flex;
+  flex-direction: row;
+}
+
+.box {
+  height: 300px;
+  width: 100%;
+  background-color: var(--color-orange);
+  color: var(--color-green);
+  background-image: url("https://picsum.photos/300");
+  background-size: 50px 35px;
+  background-repeat: repeat-y;
+  background-origin: padding-box;
+  border: 5px dashed var(--color-blue);
+  /* Enunciado pide height: 300px pero la imagen que sale no lo cumple, para ser exactamente igual se pude usar: */
+  /* padding: calc(50px + 10px + 5px)*/
+  /* En vez del margin-left de debajo */
+}
+
+/*
+*   Imagen: 50px
+*   Margen: 10px
+*   Borde: 5px
+*/
+
+a {
+  margin-left: calc(50px + 10px + 5px);
+}
