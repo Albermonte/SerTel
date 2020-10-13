@@ -1,0 +1,89 @@
+:root {
+  --color-orange: #fc8702;
+  --color-green: #41a38e;
+  --color-blue: #0582ca;
+  --text-size: 17px;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: var(--text-size);
+}
+
+main {
+  width: 600px;
+  display: flex;
+  flex-direction: row;
+}
+
+.box {
+  height: 300px;
+  width: 100%;
+  background-color: var(--color-orange);
+  color: var(--color-green);
+  background-image: url("https://picsum.photos/300");
+  background-size: 50px 35px;
+  background-repeat: repeat-y;
+  background-origin: padding-box;
+  border: 5px dashed var(--color-blue);
+  /* Enunciado pide height: 300px pero la imagen que sale no lo cumple, para ser exactamente igual se pude usar: */
+  padding: calc(50px + 10px + 5px);
+  /* En vez del margin-left de debajo */
+}
+
+/*
+*   Imagen: 50px
+*   Margen: 10px
+*   Borde: 5px
+*/
+
+/* Usando padding para ser más parecido a la imagen de la práctica */
+/* 
+a {
+  margin-left: calc(50px + 10px + 5px);
+} 
+*/
+
+h1 {
+  text-align: center;
+  font-size: calc(var(--text-size) * 1.2);
+  color: var(--color-blue);
+  text-decoration: underline;
+}
+
+.my-3 {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+/* Table CSS */
+
+table {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid var(--color-blue);
+}
+
+img {
+  height: 80px;
+}
+
+/* Text Area */
+
+.text-area {
+  height: 100%;
+  width: 166px;
+  max-height: 300px;
+  resize: both;
+  overflow: auto;
+  columns: 70px 2;
+}
