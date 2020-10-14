@@ -1,11 +1,24 @@
+/* Colors */
+
+:root {
+  --color-orange: #fc8702;
+  --color-green: #21bca5;
+  --color-blue: #0582ca;
+  --color-grey: #f4f4f4;
+  --color-grey-alt: #f9f9f9f4;
+  --color-dark-blue: #1f2348;
+}
+
+/* General CSS */
+
 html {
   font-family: "Open Sans", sans-serif;
 }
 
 header {
   font-size: 24px;
-  color: #1f2348;
-  background-color: #f4f4f4;
+  color: var(--color-dark-blue);
+  background-color: var(--color-grey);
   padding: 10px 0;
 }
 
@@ -16,7 +29,7 @@ body {
 
 footer {
   color: #264653;
-  background-color: #f4f4f4;
+  background-color: var(--color-grey);
   position: fixed;
   bottom: 0;
   width: 100%;
@@ -45,17 +58,17 @@ footer {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
-  background-color: #0582ca;
+  background-color: var(--color-blue);
   padding: 10px;
 }
 
 .link {
-  color: #f4f4f4;
+  color: var(--color-grey);
 }
 
 .info {
   width: 100%;
-  background-color: #fc8702;
+  background-color: var(--color-orange);
   padding: 10px;
   font-weight: 600;
 }
@@ -66,18 +79,14 @@ footer {
   font-weight: 700;
 }
 
-/* Colors */
-
-.background-deep-blue {
-  background-color: #1f2348;
-}
+/* Text Color */
 
 .text-grey {
-  color: #f9f9f9f4;
+  color: var(--color-grey-alt);
 }
 
 .text-green {
-  color: #21bca5;
+  color: var(--color-green);
 }
 
 /* Padding and Margin */
@@ -152,9 +161,26 @@ tr:hover {
 label,
 input {
   width: 50%;
+  max-width: 220px;
   text-align: center;
 }
 
 input[type="checkbox"] {
   width: auto;
+}
+
+/* Button */
+
+.button {
+  padding: 0.5em;
+  border: 0.1em solid #cacaca;
+  border-radius: 0.45em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: var(--color-dark-blue);
+  transition: all 0.2s;
+}
+.button:hover {
+  color: var(--color-grey);
+  background-color: var(--color-dark-blue);
 }
