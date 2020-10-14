@@ -31,6 +31,7 @@ footer {
 .row {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .col {
@@ -41,7 +42,7 @@ footer {
 }
 
 .nav {
-  width: 50%;
+  width: 100%;
   display: flex;
   justify-content: space-evenly;
   background-color: #0582ca;
@@ -53,7 +54,7 @@ footer {
 }
 
 .info {
-  width: 50%;
+  width: 100%;
   background-color: #fc8702;
   padding: 10px;
   font-weight: 600;
@@ -91,6 +92,11 @@ footer {
   padding-bottom: 8px;
 }
 
+.my-1 {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
 .my-2 {
   margin-top: 8px;
   margin-bottom: 8px;
@@ -101,9 +107,22 @@ footer {
   margin-bottom: 12px;
 }
 
+.mt-3 {
+  margin-top: 12px;
+}
+
+.mb-3 {
+  margin-bottom: 12px;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
+}
+
+.my-auto {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .text-center {
@@ -126,4 +145,16 @@ td {
 
 tr:hover {
   background-color: #f5f5f5;
+}
+
+/* Form */
+
+label,
+input {
+  width: 50%;
+  text-align: center;
+}
+
+input[type="checkbox"] {
+  width: auto;
 }
