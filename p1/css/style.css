@@ -1,4 +1,4 @@
-/* Colors */
+/* Colors Variables */
 
 :root {
   --color-orange: #fc8702;
@@ -79,7 +79,12 @@ footer {
   font-weight: 700;
 }
 
-/* Text Color */
+/* Colors */
+
+.bg-orange {
+  background-color: var(--color-orange);
+  color: var(--color-grey);
+}
 
 .text-grey {
   color: var(--color-grey-alt);
