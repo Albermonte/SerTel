@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nombre</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="text-center bg-orange">
+      Nombre de la maravillosa página de la práctica 1
+    </header>
+    <div class="container">
+      <form class="row" id="form">
+        <div class="col">
+          <a class="title text-green">Aquí puedes modificar el nombre</a>
+          <div class="row my-3 align-center">
+            <label for="fname">Nombre:</label>
+            <input type="text" id="fname" name="fname" />
+          </div>
+          <!-- Submit Button -->
+          <input
+            class="button mx-auto my-3"
+            type="submit"
+            value="Submit"
+            onclick="submitData()"
+          />
+          <div class="row my-3 text-center" id="result"></div>
+        </div>
+      </form>
+
+      <div class="nav" style="position: fixed; bottom: 42px">
+        <a href="index.html" class="link">Volver a página principal</a>
+      </div>
+    </div>
+    <footer class="text-center">Universidad de Alcalá</footer>
+  </body>
+
+  <script>
+    const nameElement = document.getElementById("fname");
+
+    const submitData = () => {
+      const element = document.getElementById("result");
+      const name = nameElement.value;
+      try {
+        if (name === "") throw "El cambo nombre no puede estar vacío";
+        localStorage.setItem("@name", name);
+        element.classList.remove("text-red"); // Removing a class that does not exist, does NOT throw an error
+        element.classList.add("text-green");
+        element.innerHTML = "Nombre guardado correctamente";
+      } catch (e) {
+        element.classList.add("text-green"); // Removing a class that does not exist, does NOT throw an error
+        element.classList.add("text-red");
+        element.innerHTML = "Error guardando nombre<br>" + e;
+      }
+    };
+
+    const form = document.getElementById("form");
+    const handleForm = (event) => {
+      event.preventDefault();
+    };
+    form.addEventListener("submit", handleForm);
+
+    // Get name stored
+    try {
+      const name = localStorage.getItem("@name");
+      nameElement.value = name;
+    } catch (e) {
+      console.log(e);
+    }
+  </script>
+</html>

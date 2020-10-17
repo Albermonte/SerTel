@@ -7,6 +7,7 @@
   --color-grey: #f4f4f4;
   --color-grey-alt: #f9f9f9f4;
   --color-dark-blue: #1f2348;
+  --color-red: #d94432;
 }
 
 /* General CSS */
@@ -92,6 +93,10 @@ footer {
 
 .text-green {
   color: var(--color-green);
+}
+
+.text-red {
+  color: var(--color-red);
 }
 
 /* Padding and Margin */
@@ -188,4 +193,10 @@ input[type="checkbox"] {
 .button:hover {
   color: var(--color-grey);
   background-color: var(--color-dark-blue);
+}
+
+/* Flex */
+
+.align-center {
+  align-items: center;
 }
