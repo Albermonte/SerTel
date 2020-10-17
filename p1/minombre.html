@@ -47,7 +47,8 @@
       const element = document.getElementById("result");
       const name = nameElement.value;
       try {
-        if (name === "") throw "El cambo nombre no puede estar vacío";
+        if (name === "" || !name.trim().length)
+          throw "El cambo nombre no puede estar vacío";
         localStorage.setItem("@name", name);
         element.classList.remove("text-red"); // Removing a class that does not exist, does NOT throw an error
         element.classList.add("text-green");
