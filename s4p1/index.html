@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sesión 4 - Práctica 1</title>
+  </head>
+  <body>
+    <div>
+      <input
+        type="number"
+        name="termino1"
+        id="termino1"
+        value="0"
+        onchange="calcularSuma()"
+      />
+      <span>+</span>
+      <input
+        type="number"
+        name="termino2"
+        id="termino2"
+        value="0"
+        onchange="calcularSuma()"
+      />
+      <span class="mx-2">=</span>
+      <span id="resultSuma">0</span>
+    </div>
+  </body>
+
+  <script>
+    const calcularSuma = () => {
+      const termino1 = document.getElementById("termino1").value;
+      const termino2 = document.getElementById("termino2").value;
+      const suma = Number(termino1) + Number(termino2);
+      document.getElementById("resultSuma").innerHTML = suma;
+    };
+  </script>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    input {
+      text-align: center;
+    }
+
+    .mx-2 {
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+  </style>
+</html>
