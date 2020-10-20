@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sesion 4 - Práctica 3</title>
+  </head>
+  <body>
+    <div class="container">
+      <button onclick="addElement()">Añadir elemento</button>
+    </div>
+    <div class="container">
+      <ol id="list">
+        <li>Elemento 1</li>
+      </ol>
+    </div>
+  </body>
+
+  <script>
+    const list = document.getElementById("list");
+    let i = 1;
+
+    const addElement = () => {
+      i++;
+      const node = document.createElement("li");
+      const text = document.createTextNode(`Elemento ${i}`);
+      // Añadir texto a <li>
+      node.appendChild(text);
+      // Añadir <li> a <ol>
+      list.appendChild(node);
+    };
+  </script>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</html>
