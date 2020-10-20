@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sesion 4 - Práctica 4</title>
+  </head>
+  <body>
+    <div class="mx-2">X: <span id="mouseX">0</span></div>
+    <div class="mx-2">Y: <span id="mouseY">0</span></div>
+  </body>
+
+  <script>
+    const mouseX = document.getElementById("mouseX");
+    const mouseY = document.getElementById("mouseY");
+
+    // Handler para calcular posición de mouse
+    const handleMouseMovement = ({ clientX, clientY }) => {
+      mouseX.innerHTML = clientX;
+      mouseY.innerHTML = clientY;
+    };
+
+    document.onmousemove = handleMouseMovement;
+  </script>
+
+  <style>
+    html,
+    body {
+      margin: 0;
+    }
+
+    body {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mx-2 {
+      margin-left: 8px;
+      margin-right: 8px;
+    }
+  </style>
+</html>
