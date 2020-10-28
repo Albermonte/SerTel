@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es" manifest="manifest.appcache">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Configuración</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="text-center bg-orange">
+      Configuración de la maravillosa página de la práctica 1
+    </header>
+    <div class="container">
+      <form class="row">
+        <div class="col">
+          <span class="title text-green">Datos de la habitación</span>
+          <div class="row my-1 mt-3">
+            <label for="country">País:</label>
+            <input
+              list="countries"
+              id="country"
+              name="country"
+              onblur="checkCountry(this.value)"
+            />
+            <datalist id="countries">
+              <option value="Spain">España</option>
+              <option value="France">Francia</option>
+              <option value="Protugal">Portugal</option>
+              <option value="Germany">Alemania</option>
+              <option value="United Kingdom">Reino Unido</option>
+              <option value="Italy">Italia</option>
+            </datalist>
+          </div>
+          <div class="row my-1">
+            <label for="city">Ciudad:</label>
+            <input type="text" id="city" name="city" />
+          </div>
+          <div class="row my-1">
+            <label for="gps">Coordenadas GPS:</label>
+            <input type="text" id="gps" name="gps" />
+          </div>
+          <div class="row my-1">
+            <label for="url">Mapa URL:</label>
+            <input type="url" id="url" name="url" />
+          </div>
+          <div class="row my-1">
+            <label for="picture">Foto:</label>
+            <input type="file" id="picture" name="picture" accept="image/*" />
+          </div>
+          <div class="row my-1">
+            <label for="pass">Password:</label>
+            <input type="password" id="pass" name="pass" />
+          </div>
+          <div class="row my-1 mb-3">
+            <span id="passStrength"></span>
+          </div>
+          <!-- Submit Button -->
+          <input
+            class="button mx-auto my-auto"
+            type="submit"
+            value="Submit"
+            onclick="submitData()"
+          />
+        </div>
+        <div class="col">
+          <span class="title text-green">Selección de los sensores</span>
+          <div class="row my-1 mt-3">
+            <input type="checkbox" id="tempSensor" name="tempSensor" />
+            <label for="tempSensor">Temperatura</label>
+          </div>
+          <div class="row my-1">
+            <input type="checkbox" id="humidity" name="humidity" />
+            <label for="humidity">Humedad</label>
+          </div>
+          <div class="row my-1">
+            <input type="checkbox" id="sound" name="sound" />
+            <label for="sound">Nivel de sonido</label>
+          </div>
+          <div class="row my-1">
+            <input type="checkbox" id="light" name="light" />
+            <label for="light">Nivel de la luz</label>
+          </div>
+          <div class="row my-1 mb-3">
+            <input type="checkbox" id="movement" name="movement" />
+            <label for="movement">Movimiento</label>
+          </div>
+          <span class="title text-green mt-3">Configure Alertas</span>
+          <div class="row my-1 mt-3">
+            <label for="tempMin">Temperatura Mínima</label>
+            <input
+              type="number"
+              id="tempMin"
+              name="tempMin"
+              min="-25"
+              max="50"
+              value="22"
+              onchange="calculateTempVar()"
+            />
+          </div>
+          <div class="row my-1">
+            <label for="tempMax">Temperatura Máxima</label>
+            <input
+              type="number"
+              id="tempMax"
+              name="tempMax"
+              min="-25"
+              max="50"
+              value="26"
+              onchange="calculateTempVar()"
+            />
+          </div>
+          <div class="row my-1 mb-3">
+            <label>Variación de Temperatura</label>
+            <input type="number" id="tempVar" value="4" disabled="disabled" />
+          </div>
+        </div>
+      </form>
+
+      <div class="nav" style="position: fixed; bottom: 42px">
+        <a href="index.html" class="link">Volver a página principal</a>
+      </div>
+    </div>
+    <footer class="text-center">Universidad de Alcalá</footer>
+  </body>
+
+  <script>
+    const submitData = () => {
+      alert("Form submitted");
+    };
+
+    const checkCountry = (value) => {
+      // Guardar todas las opciones del datalist en un objeto
+      const options = document.getElementById("countries").options;
+      // Inicializar como false para solo tener if y no else
+      let ok = false;
+      // Recorrer el objeto entero y comparar si los valores de las opciones y el insertaado por el usuario son iguales
+      for (let i = 0; i < options.length; i++) {
+        // Poner todo a mayúsculas y quitar espacios para permitir insertar reino unido o ReinoUnido
+        if (
+          options[i].value.toUpperCase().replace(/\s+/g, "") ===
+          value.toUpperCase().replace(/\s+/g, "")
+        )
+          ok = true;
+      }
+      // Si no se ha encontrado ninguna opción igual al valor mostrar alert
+      if (!ok) alert("País Erroneo");
+    };
+
+    const calculateTempVar = () => {
+      const tempMinElement = document.getElementById("tempMin");
+      const tempMin = tempMinElement.value;
+      const tempMaxElement = document.getElementById("tempMax");
+      const tempMax = tempMaxElement.value;
+      const tempVar = tempMax - tempMin;
+      if (tempVar < 0) {
+        alert("La temperatura mínima no puede ser mayor que la máxima");
+        tempMinElement.value = tempMax - 1;
+        tempMaxElement.value = 1;
+      } else document.getElementById("tempVar").value = tempVar;
+      // Llamamos aquí la función para aprovechar que ya tenemos tempMinElement y tempMaxElement
+      verifyTemp(tempMinElement, tempMaxElement);
+    };
+
+    const verifyTemp = (tempMinElement, tempMaxElement) => {
+      const tempMin = tempMinElement.value;
+      const tempMax = tempMaxElement.value;
+      // Ponemos todo el texto en verde
+      tempMinElement.classList.remove("text-red");
+      tempMaxElement.classList.remove("text-red");
+      tempMinElement.classList.add("text-green");
+      tempMaxElement.classList.add("text-green");
+      // En esta ocasión asumimos que está correcto al principio y lo cambiamos si no lo está
+      let ok = true;
+      // Si alguna de las temperaturas está mal se pone en rojo
+      if (tempMin < 22 || tempMin > 26) {
+        tempMinElement.classList.add("text-red");
+        ok = false;
+      }
+      // No se usa else if porque pueden estar ambas mal
+      if (tempMax < 22 || tempMax > 26) {
+        tempMaxElement.classList.add("text-red");
+        ok = false;
+      }
+      // No se pone alert dentro de los otros if para evitar que salga 2 veces si ambas temperaturas están mal
+      if (!ok) alert("La temperatura tiene que estar entre 22 y 26 ºC");
+    };
+
+    const passElement = document.getElementById("pass");
+    passElement.addEventListener("input", (e) => {
+      verifyPass(e.target.value);
+    });
+
+    const verifyPass = (pass) => {
+      const passLength = pass.length;
+      const passStrengthElement = document.getElementById("passStrength");
+      let ok = true;
+      if (passLength <= 6) {
+        ok = false;
+        passStrengthElement.innerHTML = "Contraseña insegura";
+      } else {
+        // Seguridad = numero caracteres /2
+        const strength = passLength / 2;
+        // La seguridad no va a ser mayor de 10
+        passStrengthElement.innerHTML = `Contraseña de calidad ${
+          strength > 10 ? 10 : strength
+        }`;
+      }
+
+      // Si todo esta ok texto en verde, si hay algun problema en rojo
+      if (ok) {
+        passStrengthElement.classList.remove("text-red");
+        passStrengthElement.classList.add("text-green");
+      } else {
+        passStrengthElement.classList.remove("text-green");
+        passStrengthElement.classList.add("text-red");
+      }
+    };
+  </script>
+</html>
