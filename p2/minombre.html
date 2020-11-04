@@ -83,11 +83,14 @@
     const checkEmailJS = ({ target: { value } }) => {
       let ok = false;
       try {
+        // Split using @ character
         const str = value.split("@");
         const username = str[0];
+        // Split the second part using . character to separate domain from TLD
         const domainTLD = str[1].split(".");
         const domain = domainTLD[0];
         const tld = domainTLD[1];
+        // If nothing is undefined it's correct
         if (username && domain && tld) ok = true;
         else ok = false;
       } catch (e) {
@@ -107,8 +110,15 @@
 
     // Check email RegEx
     const checkEmailRX = ({ target: { value } }) => {
-      let ok = false;
-      ok = value.match(/^[\w\.]+@([\w]+\.)+[\w]{2,4}$/gm);
+      /**
+       * ^     : String start
+       * \w    : Match any word character
+       * \.    : Match the . character
+       * +     : Match all times posible
+       * @     : Match the @ character
+       * {2,4} : Match between 2 and 4 characters, TLD domains are .co, .com, .tech for example
+       */
+      const ok = value.match(/^[\w\.]+@([\w]+\.)+[\w]{2,4}$/gm);
 
       if (ok) {
         resultElement.classList.remove("text-red"); // Removing a class that does not exist, does NOT throw an error
