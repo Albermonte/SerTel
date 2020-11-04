@@ -22,6 +22,10 @@
             <label for="fname">Nombre:</label>
             <input type="text" id="fname" name="fname" />
           </div>
+          <div class="row my-3 align-center">
+            <label for="femail">Email:</label>
+            <input type="text" id="femail" name="femail" />
+          </div>
           <!-- Submit Button -->
           <input
             class="button mx-auto my-3"
@@ -42,21 +46,22 @@
 
   <script>
     const nameElement = document.getElementById("fname");
+    const resultElement = document.getElementById("result");
 
     const submitData = () => {
-      const element = document.getElementById("result");
       const name = nameElement.value;
       try {
         if (name === "" || !name.trim().length)
-          throw "El cambo nombre no puede estar vacío";
+          throw "El campo nombre no puede estar vacío";
+        throw "El campo nombre no puede estar vacío";
         localStorage.setItem("@name", name);
-        element.classList.remove("text-red"); // Removing a class that does not exist, does NOT throw an error
-        element.classList.add("text-green");
-        element.innerHTML = "Nombre guardado correctamente";
+        resultElement.classList.remove("text-red"); // Removing a class that does not exist, does NOT throw an error
+        resultElement.classList.add("text-green");
+        resultElement.innerHTML = "Nombre guardado correctamente";
       } catch (e) {
-        element.classList.add("text-green"); // Removing a class that does not exist, does NOT throw an error
-        element.classList.add("text-red");
-        element.innerHTML = "Error guardando nombre<br>" + e;
+        resultElement.classList.add("text-green"); // Removing a class that does not exist, does NOT throw an error
+        resultElement.classList.add("text-red");
+        resultElement.innerHTML = "Error guardando nombre<br>" + e;
       }
     };
 
@@ -73,5 +78,51 @@
     } catch (e) {
       console.log(e);
     }
+
+    // Check email only JS
+    const checkEmailJS = ({ target: { value } }) => {
+      let ok = false;
+      try {
+        const str = value.split("@");
+        const username = str[0];
+        const domainTLD = str[1].split(".");
+        const domain = domainTLD[0];
+        const tld = domainTLD[1];
+        if (username && domain && tld) ok = true;
+        else ok = false;
+      } catch (e) {
+        ok = false;
+      }
+
+      if (ok) {
+        resultElement.classList.remove("text-red"); // Removing a class that does not exist, does NOT throw an error
+        resultElement.classList.add("text-green");
+        resultElement.innerHTML = "Email válido";
+      } else {
+        resultElement.classList.add("text-green"); // Removing a class that does not exist, does NOT throw an error
+        resultElement.classList.add("text-red");
+        resultElement.innerHTML = "Email inválido";
+      }
+    };
+
+    // Check email RegEx
+    const checkEmailRX = ({ target: { value } }) => {
+      let ok = false;
+      ok = value.match(/^[\w\.]+@([\w]+\.)+[\w]{2,4}$/gm);
+
+      if (ok) {
+        resultElement.classList.remove("text-red"); // Removing a class that does not exist, does NOT throw an error
+        resultElement.classList.add("text-green");
+        resultElement.innerHTML = "Email válido";
+      } else {
+        resultElement.classList.add("text-green"); // Removing a class that does not exist, does NOT throw an error
+        resultElement.classList.add("text-red");
+        resultElement.innerHTML = "Email inválido";
+      }
+    };
+
+    // Email Listener
+    const emailElement = document.getElementById("femail");
+    emailElement.addEventListener("input", checkEmailRX);
   </script>
 </html>
