@@ -128,6 +128,7 @@
   </body>
 
   <script>
+    // TODO: Comprobar no campos vacios
     const submitData = () => {
       alert("Form submitted");
     };
@@ -220,5 +221,30 @@
         passStrengthElement.classList.add("text-red");
       }
     };
+
+    const gps = document.getElementById("gps");
+    const mapUrl = document.getElementById("url");
+
+    /**
+     * Test values:
+     * N 40º 30' 45.00", O 3º 20' 54.00"
+     * +40.513,-3.3486
+     */
+
+    gps.addEventListener("input", (e) => {
+      // Guardar valor sin espacios
+      const value = e.target.value.replace(/\s+/g, "");
+      // Separar latitud y longitus usando el caracter ,
+      const separate = value.split(",");
+      let latitude = separate[0];
+      let longitude = separate[1];
+      // Comprobar si hay que poner signo negativo, si no es necesario solo retirar la letra (no funciona con la letra)
+      if (latitude.includes("S")) latitude = latitude.replace("S", "-");
+      else latitude = latitude.replace("N", "");
+      if (longitude.includes("O")) longitude = longitude.replace("O", "-");
+      else longitude = longitude.replace("E", "");
+      // Asignar el resultado al input de Mapa URL
+      mapUrl.value = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+    });
   </script>
 </html>
