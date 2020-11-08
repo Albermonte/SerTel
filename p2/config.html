@@ -44,6 +44,10 @@
             <input type="text" id="gps" name="gps" />
           </div>
           <div class="row my-1">
+            <label for="gps">Coordenadas GPS:</label>
+            <button onclick="geolocate()">Auto Locate</button>
+          </div>
+          <div class="row my-1">
             <label for="url">Mapa URL:</label>
             <input type="url" id="url" name="url" />
           </div>
@@ -279,5 +283,17 @@
       // Assign result to Mapa URL input
       mapUrlElement.value = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
     });
+
+    // Geolocation
+    const geolocation = () => {
+      if ("geolocation" in navigator) {
+        /* la geolocalización está disponible */
+        navigator.geolocation.getCurrentPosition(function (position) {
+          console.log(position.coords.latitude, position.coords.longitude);
+        });
+      } else {
+        alert("Geolocalización no disponible");
+      }
+    };
   </script>
 </html>
