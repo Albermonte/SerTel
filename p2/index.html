@@ -69,6 +69,7 @@
           </table>
         </div>
       </div>
+      <div class="cursor"></div>
     </div>
     <footer class="text-center">Universidad de Alcalá</footer>
   </body>
@@ -88,10 +89,27 @@
      * Mejoras:
      *  Musica
      *  Puntero que sigue a ratón
-     *  Mirar siguiente practica para incluir mejoras que piden
      *  Localización
      *  Tiempo sol,lluvia...
      *  Reloj
      */
+
+    // Custom Cursor
+    const cursor = document.querySelector(".cursor");
+
+    document.addEventListener("mousemove", (e) => {
+      cursor.setAttribute(
+        "style",
+        "top: " + (e.pageY - 10) + "px; left: " + (e.pageX - 10) + "px;"
+      );
+    });
+
+    document.addEventListener("click", () => {
+      cursor.classList.add("expand");
+
+      setTimeout(() => {
+        cursor.classList.remove("expand");
+      }, 500);
+    });
   </script>
 </html>
