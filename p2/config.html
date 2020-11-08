@@ -167,20 +167,20 @@
 
     // Country
     const checkCountry = (value) => {
-      // Guardar todas las opciones del datalist en un objeto
+      // Save all options from datalist insto an object
       const options = document.getElementById("countries").options;
-      // Inicializar como false para solo tener if y no else
+      // Initialize as false to have only an if and not an else
       let ok = false;
-      // Recorrer el objeto entero y comparar si los valores de las opciones y el insertaado por el usuario son iguales
+      // Search on the object and check if the values from the options and the one from the user are the same
       for (let i = 0; i < options.length; i++) {
-        // Poner todo a mayúsculas y quitar espacios para permitir insertar reino unido o ReinoUnido
+        // All uppercase and remove spaces to let user type "reino unido" or "ReinoUnido"
         if (
           options[i].value.toUpperCase().replace(/\s+/g, "") ===
           value.toUpperCase().replace(/\s+/g, "")
         )
           ok = true;
       }
-      // Si no se ha encontrado ninguna opción igual al valor mostrar alert
+      // If theres no coincidence show an alert
       if (!ok) alert("País Erroneo");
     };
 
@@ -196,7 +196,7 @@
         tempMinElement.value = tempMax - 1;
         tempMaxElement.value = 1;
       } else document.getElementById("tempVar").value = tempVar;
-      // Llamamos aquí la función para aprovechar que ya tenemos tempMinElement y tempMaxElement
+      // Call here the function to take advantage of already having tempMinElement and tempMaxElement
       verifyTemp(tempMinElement, tempMaxElement);
     };
 
