@@ -288,7 +288,10 @@
     const geolocate = () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-          console.log(position.coords.latitude, position.coords.longitude);
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          gpsElement.value = `${latitude},${longitude}`;
+          mapUrlElement.value = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
         });
       } else {
         alert("Geolocalización no disponible");
