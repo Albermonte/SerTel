@@ -15,7 +15,7 @@
       Configuración de la maravillosa página de la práctica 1
     </header>
     <div class="container">
-      <form class="row">
+      <form class="row" id="form">
         <div class="col">
           <span class="title text-green">Datos de la habitación</span>
           <div class="row my-1 mt-3">
@@ -128,11 +128,44 @@
   </body>
 
   <script>
-    // TODO: Comprobar no campos vacios
+    // Prevent form from reloading page
+    const form = document.getElementById("form");
+    const handleForm = (event) => {
+      event.preventDefault();
+    };
+    form.addEventListener("submit", handleForm);
+
+    // Check if any input is empty
+    const countryElement = document.getElementById("country");
+    const cityElement = document.getElementById("city");
+    const gpsElement = document.getElementById("gps");
+    const mapUrlElement = document.getElementById("url");
+    const pictureElement = document.getElementById("picture");
+    const passElement = document.getElementById("pass");
+
     const submitData = () => {
-      alert("Form submitted");
+      const countryValue = countryElement.value;
+      const cityValue = cityElement.value;
+      const gpsValue = gpsElement.value;
+      const mapUrlValue = mapUrlElement.value;
+      const pictureValue = pictureElement.value;
+      const passValue = passElement.value;
+
+      if (
+        countryValue &&
+        cityValue &&
+        gpsValue &&
+        mapUrlValue &&
+        pictureValue &&
+        passValue
+      ) {
+        // If all is correct submit the form
+        form.submit();
+        alert("Form submitted");
+      } else alert("Rellena todos los campos");
     };
 
+    // Country
     const checkCountry = (value) => {
       // Guardar todas las opciones del datalist en un objeto
       const options = document.getElementById("countries").options;
@@ -151,6 +184,7 @@
       if (!ok) alert("País Erroneo");
     };
 
+    // Temperature Variation
     const calculateTempVar = () => {
       const tempMinElement = document.getElementById("tempMin");
       const tempMin = tempMinElement.value;
@@ -166,6 +200,7 @@
       verifyTemp(tempMinElement, tempMaxElement);
     };
 
+    // Temperature Between 22 and 26
     const verifyTemp = (tempMinElement, tempMaxElement) => {
       const tempMin = tempMinElement.value;
       const tempMax = tempMaxElement.value;
@@ -190,7 +225,7 @@
       if (!ok) alert("La temperatura tiene que estar entre 22 y 26 ºC");
     };
 
-    const passElement = document.getElementById("pass");
+    // Password verification
     passElement.addEventListener("input", (e) => {
       // Escuchar a cada input del teclado y comprobar
       verifyPass(e.target.value);
@@ -222,16 +257,14 @@
       }
     };
 
-    const gps = document.getElementById("gps");
-    const mapUrl = document.getElementById("url");
-
+    // GPS Coordinates to URL
     /**
      * Test values:
      * N 40º 30' 45.00", O 3º 20' 54.00"
      * +40.513,-3.3486
      */
 
-    gps.addEventListener("input", (e) => {
+    gpsElement.addEventListener("input", (e) => {
       // Save value without spaces
       const value = e.target.value.replace(/\s+/g, "");
       // Separar latitud y longitus usando el caracter ,
@@ -244,7 +277,7 @@
       if (longitude.includes("O")) longitude = longitude.replace("O", "-");
       else longitude = longitude.replace("E", "");
       // Assign result to Mapa URL input
-      mapUrl.value = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
+      mapUrlElement.value = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}`;
     });
   </script>
 </html>
