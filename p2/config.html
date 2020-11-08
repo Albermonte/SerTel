@@ -285,9 +285,8 @@
     });
 
     // Geolocation
-    const geolocation = () => {
-      if ("geolocation" in navigator) {
-        /* la geolocalización está disponible */
+    const geolocate = () => {
+      if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
           console.log(position.coords.latitude, position.coords.longitude);
         });
