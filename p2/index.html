@@ -21,9 +21,12 @@
         </div>
         <div class="info text-grey">
           <span> Información: </span>
-          <span style="font-weight: 400; margin-left: 10px" id="infoName">
+          <marquee
+            style="font-weight: 400; margin-left: 10px; width: 80%"
+            id="infoName"
+          >
             Ningún nombre guardado aún
-          </span>
+          </marquee>
         </div>
       </div>
       <div class="row">
@@ -87,11 +90,9 @@
 
     /**
      * Mejoras:
-     *  Musica
+     *  Marquee
      *  Puntero que sigue a ratón
      *  Localización
-     *  Tiempo sol,lluvia...
-     *  Reloj
      */
 
     // Custom Cursor
@@ -102,14 +103,6 @@
         "style",
         "top: " + (e.pageY - 10) + "px; left: " + (e.pageX - 10) + "px;"
       );
-    });
-
-    document.addEventListener("click", () => {
-      cursor.classList.add("expand");
-
-      setTimeout(() => {
-        cursor.classList.remove("expand");
-      }, 500);
     });
   </script>
 </html>
