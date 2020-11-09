@@ -73,7 +73,7 @@
         </div>
       </div>
     </div>
-    <div class="cursor"></div>
+    <div class="cursor" id="cursor"></div>
     <footer class="text-center">Universidad de Alcalá</footer>
   </body>
 
@@ -96,7 +96,7 @@
      */
 
     // Custom Cursor
-    const cursor = document.querySelector(".cursor");
+    const cursor = document.getElementById("cursor");
 
     document.addEventListener("mousemove", (e) => {
       cursor.setAttribute(
