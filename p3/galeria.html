@@ -40,6 +40,7 @@
           <div class="item" id="nine"></div>
         </div>
       </div>
+      <div class="cursor" id="cursor"></div>
       <div class="nav" style="position: fixed; bottom: 42px">
         <a href="index.html" class="link">Volver a página principal</a>
       </div>
@@ -103,5 +104,22 @@
         }
       });
     });
+
+    // Custom Cursor
+    const cursor = document.getElementById("cursor");
+
+    document.addEventListener("mousemove", (e) => {
+      cursor.setAttribute(
+        "style",
+        "top: " + (e.pageY - 10) + "px; left: " + (e.pageX - 10) + "px;"
+      );
+    });
   </script>
+  <!-- 
+      Mejoras:
+      - Galería automática para nuevas fotos
+      - Puntero css
+      - Galería que vuelvo al principio o final cuando termina
+      - Autoscroll
+   -->
 </html>
