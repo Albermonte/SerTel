@@ -49,61 +49,76 @@
   </body>
 
   <script type="text/javascript">
-    $(document).ready(function () {
-      const windowWidth = $(window).width();
-      const containerWidth = $(".gallery-container").width();
-      const imgContainer = $(".img-container");
-      const imgContainerChildrenArray = imgContainer.children();
-      const numberOfImages = imgContainerChildrenArray.length;
-      const item = $(".item");
-      let slide_number = 0;
+    const windowWidth = $(window).width();
+    const containerWidth = $(".gallery-container").width();
+    const imgContainer = $(".img-container");
+    const imgContainerChildrenArray = imgContainer.children();
+    const numberOfImages = imgContainerChildrenArray.length;
+    const item = $(".item");
+    let slide_number = 0;
 
-      imgContainer.css("width", containerWidth * (numberOfImages / 3));
-      item.css("width", imgContainer.width() / numberOfImages);
+    imgContainer.css("width", containerWidth * (numberOfImages / 3));
+    item.css("width", imgContainer.width() / numberOfImages);
 
-      // Just by adding the image to the folder and the div tag to the img-container is enough to add a new image
-      for (let i = 0; i < numberOfImages; i++) {
-        const id = imgContainerChildrenArray[i].id;
-        $(`#${id}`).css({
-          "background-repeat": "no-repeat",
-          "background-position": "center",
-          "background-size": "cover",
-          "background-image": `url("images/img${i + 1}.jpg")`,
+    // Just by adding the image to the folder and the div tag to the img-container is enough to add a new image
+    for (let i = 0; i < numberOfImages; i++) {
+      const id = imgContainerChildrenArray[i].id;
+      $(`#${id}`).css({
+        "background-repeat": "no-repeat",
+        "background-position": "center",
+        "background-size": "cover",
+        "background-image": `url("images/img${i + 1}.jpg")`,
+      });
+    }
+
+    $(".next").click(() => {
+      const item_width = $(".item").width();
+
+      if (slide_number === numberOfImages - 3) {
+        slide_number = 0;
+        imgContainer.animate({
+          marginLeft: 0,
+        });
+      } else {
+        slide_number++;
+        imgContainer.animate({
+          marginLeft: -item_width * slide_number,
         });
       }
-
-      $(".next").click(function () {
-        const item_width = $(".item").width();
-
-        if (slide_number === numberOfImages - 3) {
-          slide_number = 0;
-          imgContainer.animate({
-            marginLeft: 0,
-          });
-        } else {
-          slide_number++;
-          imgContainer.animate({
-            marginLeft: -item_width * slide_number,
-          });
-        }
-      });
-
-      $(".previous").click(function () {
-        const item_width = $(".item").width();
-
-        if (slide_number === 0) {
-          slide_number = numberOfImages - 3;
-          imgContainer.animate({
-            marginLeft: -item_width * (numberOfImages - 3),
-          });
-        } else {
-          slide_number--;
-          imgContainer.animate({
-            marginLeft: -item_width * slide_number,
-          });
-        }
-      });
     });
+
+    $(".previous").click(() => {
+      const item_width = $(".item").width();
+
+      if (slide_number === 0) {
+        slide_number = numberOfImages - 3;
+        imgContainer.animate({
+          marginLeft: -item_width * (numberOfImages - 3),
+        });
+      } else {
+        slide_number--;
+        imgContainer.animate({
+          marginLeft: -item_width * slide_number,
+        });
+      }
+    });
+
+    // Hover image
+    $("div.item").hover(
+      function () {
+        const bgImage = $(this).css("background-image").split('("')[1];
+        $(this).append(
+          $(
+            `<div class="image-hover">
+              <a class="button" href=${bgImage.slice(0, -2)}>OPEN</a>
+            </div>`
+          )
+        );
+      },
+      function () {
+        $(this).find("div").last().remove();
+      }
+    );
 
     // Custom Cursor
     const cursor = document.getElementById("cursor");

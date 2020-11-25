@@ -50,3 +50,17 @@
   margin: auto;
   color: var(--color-grey);
 }
+
+.image-hover {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  background-color: #000000b3;
+}
+
+.button {
+  background-color: var(--color-grey);
+  color: var(--color-dark-blue);
+  text-decoration: none;
+}
