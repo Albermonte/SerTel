@@ -191,7 +191,7 @@
         }
       }
       // If theres no coincidence show an alert
-      if (!ok) alert("País Erroneo");
+      if (!ok || !country) alert("País Erroneo");
       else {
         // Get cities from server
         $.getJSON("data/cities.json", (cities) => {
