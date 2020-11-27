@@ -9,10 +9,11 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="css/style.css" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   </head>
   <body>
     <header class="text-center bg-orange">
-      Configuración de la maravillosa página de la práctica 1
+      Configuración de la maravillosa página de la práctica 3
     </header>
     <div class="container">
       <form class="row" id="form">
@@ -37,7 +38,8 @@
           </div>
           <div class="row my-1">
             <label for="city">Ciudad:</label>
-            <input type="text" id="city" name="city" />
+            <input list="cities" type="text" id="city" name="city" />
+            <datalist id="cities"></datalist>
           </div>
           <div class="row my-1">
             <label for="gps">Coordenadas GPS:</label>
@@ -175,17 +177,35 @@
       const options = document.getElementById("countries").options;
       // Initialize as false to have only an if and not an else
       let ok = false;
+      // Save selected country
+      let country = null;
       // Search on the object and check if the values from the options and the one from the user are the same
       for (let i = 0; i < options.length; i++) {
         // All uppercase and remove spaces to let user type "reino unido" or "ReinoUnido"
         if (
           options[i].value.toUpperCase().replace(/\s+/g, "") ===
           value.toUpperCase().replace(/\s+/g, "")
-        )
+        ) {
           ok = true;
+          country = options[i].value;
+        }
       }
       // If theres no coincidence show an alert
       if (!ok) alert("País Erroneo");
+      else {
+        // Get cities from server
+        $.getJSON("data/cities.json", (cities) => {
+          let options = "";
+          const citiesArray = eval(`cities.${country}`);
+          // Translate array to options for datalist
+          citiesArray.forEach((element) => {
+            options += `<option value="${element}" />`;
+          });
+          const citiesElement = document.getElementById("cities");
+          // Change every option for new ones
+          citiesElement.innerHTML = options;
+        });
+      }
     };
 
     // Temperature Variation
