@@ -34,6 +34,10 @@
           <span class="button mx-2" onclick="renderTable(0)"> Pagina 1 </span>
           <span class="button mx-2" onclick="renderTable(1)"> Pagina 2 </span>
           <span class="button mx-2" onclick="renderTable(2)"> Pagina 3 </span>
+          <span class="button mx-2" onclick="renderTableXML()"> Pagina 4 </span>
+          <span class="button mx-2" onclick="renderTableJSON()">
+            Pagina 5
+          </span>
         </div>
       </div>
       <div class="nav" style="position: fixed; bottom: 42px">
@@ -127,6 +131,58 @@
               `;
         $("table").append(element);
       }
+    };
+
+    const renderTableXML = () => {
+      $.ajax({
+        type: "GET",
+        url: "data/citiesData.xml",
+        dataType: "xml",
+      }).done((xmlDoc) => {
+        const citiesLength = xmlDoc.getElementsByTagName("City").length;
+        for (let i = 0; i < tableRowsNumber; i++) {
+          $("table").find("tr").last().remove();
+        }
+        for (let i = 0; i < tableRowsNumber; i++) {
+          const city = xmlDoc.getElementsByTagName("City")[i];
+          const element = `
+            <tr>
+              <td>${$(city).find("Name").text()}</td>
+              <td>${$(city).find("Temp").text()}</td>
+              <td>${$(city).find("Hum").text()}</td>
+              <td>${$(city).find("Noise").text()}</td>
+              <td>${$(city).find("Light").text()}</td>
+              <td>${$(city).find("Color").text()}</td>
+              </tr>
+              `;
+          $("table").append(element);
+        }
+      });
+    };
+
+    const renderTableJSON = () => {
+      $.ajax({
+        type: "GET",
+        url: "data/citiesData.json",
+        dataType: "json",
+      }).done((jsonDoc) => {
+        for (let i = 0; i < tableRowsNumber; i++) {
+          $("table").find("tr").last().remove();
+        }
+        for (let i = 0; i < tableRowsNumber; i++) {
+          const element = `
+            <tr>
+              <td>${jsonDoc[i].name}</td>
+              <td>${jsonDoc[i].temp}</td>
+              <td>${jsonDoc[i].hum}</td>
+              <td>${jsonDoc[i].noise}</td>
+              <td>${jsonDoc[i].light}</td>
+              <td>${jsonDoc[i].color}</td>
+              </tr>
+              `;
+          $("table").append(element);
+        }
+      });
     };
 
     (() => {
