@@ -109,6 +109,9 @@
         .toUpperCase();
 
     const renderTable = (actualPage, firstRender = false) => {
+      // Mejora: Animación al cambiar de página
+      $("table").fadeToggle(0);
+
       if (!firstRender) {
         for (let i = 0; i < tableRowsNumber; i++) {
           $("table").find("tr").last().remove();
@@ -131,9 +134,13 @@
               `;
         $("table").append(element);
       }
+
+      $("table").fadeToggle(750);
     };
 
     const renderTableXML = () => {
+      $("table").fadeToggle(0);
+
       $.ajax({
         type: "GET",
         url: "data/citiesData.xml",
@@ -157,10 +164,13 @@
               `;
           $("table").append(element);
         }
+        $("table").fadeToggle(750);
       });
     };
 
     const renderTableJSON = () => {
+      $("table").fadeToggle(0);
+
       $.ajax({
         type: "GET",
         url: "data/citiesData.json",
@@ -182,6 +192,8 @@
               `;
           $("table").append(element);
         }
+
+        $("table").fadeToggle(750);
       });
     };
 
