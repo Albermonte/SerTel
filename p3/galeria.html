@@ -72,9 +72,11 @@
     }
 
     $(".next").click(() => {
+      // Get item width for scrolling to the next image on click
       const item_width = $(".item").width();
 
       if (slide_number === numberOfImages - 3) {
+        // If we are at the end of the gallery go to the first one
         slide_number = 0;
         imgContainer.animate({
           marginLeft: 0,
@@ -106,6 +108,7 @@
     // Hover image
     $("div.item").hover(
       function () {
+        // Get image url from background-image property
         const bgImage = $(this).css("background-image").split('("')[1];
         $(this).append(
           $(
@@ -134,7 +137,6 @@
       Mejoras:
       - Galería automática para nuevas fotos
       - Puntero css
-      - Galería que vuelvo al principio o final cuando termina
-      - Autoscroll
+      - Galería que vuelve al principio o final cuando termina
    -->
 </html>
