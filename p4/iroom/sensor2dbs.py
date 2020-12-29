@@ -40,9 +40,15 @@ def updateSensor(code):
 
 def controlLightColor():
     try:
+        cursor = db.cursor()
+        os.system("date")
         cursor.execute(
             """SELECT valor FROM sensors WHERE nombre='red' order by time desc""")
-        red = int(cursor.fetchone()[0])
+        #red = int(cursor.fetchone()[0])
+        red = 0
+        print(type(cursor))
+        for one_row in cursor:
+            print(one_row)
         if (red != last_value[5]):
             last_value[5] = red
             print("red:" + str(red))
