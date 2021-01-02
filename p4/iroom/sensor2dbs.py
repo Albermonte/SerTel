@@ -10,7 +10,8 @@ import mysql.connector
 db = mysql.connector.connect(
     host="localhost", user="root", passwd="srsa", db="iroom")
 
-type_sensor = ['temperature', 'humidity', 'light', 'sound', 'motion']
+type_sensor = ['temperature', 'humidity', 'light',
+               'sound', 'motion', 'red', 'blue', 'green']
 last_value = [0, 0, 0, 0, 0, 0, 0, 0]
 
 # PONER LA IP DE LA MÁQUINA VIRTUAL EN LA QUE ESTÉ CORRIENDO EL EMULADOR
@@ -21,39 +22,36 @@ http = urllib3.PoolManager()
 
 def updateSensor(code):
     value = 0
+    sensor = type_sensor[code]
     try:
         """ PARTE 1:COMPLETAR AQUÍ EL CÓDIGO PARA LEER EL VALOR DE UN SENSOR CON API REST"""
-        response = http.request('GET', server + '/temperature')
+        response = http.request('GET', server + sensor)
         data = json.loads(response.data)
-        value = data['temperature']
+        value = data[sensor]
     except ValueError:
         print('Error de leer dato de sensor')
     if value != last_value[code]:
         try:
             """ PARTE 1: COMPLETAR AQUÍ EL CÓDIGO PARA ESCRIBIR EN LA BASE DE DATOS EL VALOR DEL SENSOR"""
+            last_value[code] = value
             cursor.execute(
-                """INSERT INTO sensors(nombre, valor) values(%s, %s)""", ('temperatura', value))
+                """INSERT INTO sensors(nombre, valor) values(%s, %s)""", (sensor, value))
+            db.commit()
 
         except ValueError:
             print('Error al insertar en base de datos')
 
 
-def controlLightColor():
+def controlLightColor(code):
+    sensor = type_sensor[code]
     try:
-        cursor = db.cursor()
-        os.system("date")
         cursor.execute(
-            """SELECT valor FROM sensors WHERE nombre='red' order by time desc""")
-        #red = int(cursor.fetchone()[0])
-        red = 0
-        print(type(cursor))
-        for one_row in cursor:
-            print(one_row)
-        if (red != last_value[5]):
-            last_value[5] = red
-            print("red:" + str(red))
-            response = http.request('PUT', server+'red/'+str(red))
-            print(response.data)
+            f"""SELECT valor FROM sensors WHERE nombre='{sensor}' order by time desc""")
+        value = int(cursor.fetchone()[0])
+        if (value != last_value[code]):
+            last_value[code] = value
+            print(sensor + ': ' + str(value))
+            response = http.request('PUT', server + sensor + '/' + str(value))
     except ValueError:
         print('Error al consultar de base de datos o conectar con iroom')
 
@@ -84,7 +82,9 @@ if __name__ == "__main__":
     db.commit()
     print('Base de datos creada, comienza la consulta de sensores')
     while True:
-        for code in range(0, 5):
-            updateSensor(code)
+        for code in range(0, 8):
+            if(code < 5):
+                updateSensor(code)
+            else:
+                controlLightColor(code)
             time.sleep(1)
-        controlLightColor()
