@@ -43,6 +43,7 @@ def updateSensor(code):
 
 
 def controlLightColor(code):
+    """ PARTE 1: COMPLETAR AQUI EL RESTO DE CÓDIGO PARA PROCESAR EL COLOR VERDE Y AZUL"""
     sensor = type_sensor[code]
     try:
         cursor.execute(
@@ -50,12 +51,10 @@ def controlLightColor(code):
         value = int(cursor.fetchone()[0])
         if (value != last_value[code]):
             last_value[code] = value
-            print(sensor + ': ' + str(value))
+            # print(sensor + ': ' + str(value))
             response = http.request('PUT', server + sensor + '/' + str(value))
     except ValueError:
         print('Error al consultar de base de datos o conectar con iroom')
-
-        """ PARTE 1: COMPLETAR AQUI EL RESTO DE CÓDIGO PARA PROCESAR EL COLOR VERDE Y AZUL"""
 
 
 if __name__ == "__main__":
