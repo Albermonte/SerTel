@@ -6,7 +6,7 @@
 		var sse = new EventSource("/update_sensor");
     	sse.onmessage = function(event) {
     		var sensor = event.data;
-    		obj = JSON.parse(sensor)
+			obj = JSON.parse(sensor)
     	  	if (obj.tipo == 'temperatura') {
            		document.getElementById('ct').innerHTML = "Temperatura: "+obj.valor;
         	 	document.getElementById('temperatura').setAttribute('value', obj.valor);
