@@ -71,7 +71,7 @@ if __name__ == "__main__":
     cursor.execute(
         """INSERT INTO sensors(nombre, valor) values(%s, %s)""", ('sound', 10))
     cursor.execute(
-        """INSERT INTO sensors(nombre, valor) values(%s, %s)""", ('motion', 0))
+        """INSERT INTO sensors(nombre, valor) values(%s, %s)""", ('motion', 1))
     cursor.execute(
         """INSERT INTO sensors(nombre, valor) values(%s, %s)""", ('red', 20))
     cursor.execute(

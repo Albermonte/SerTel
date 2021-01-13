@@ -19,24 +19,28 @@ last_value = [0, 0, 0, 0, 0]
 
 
 def event_sensor():
-	code = 0
+    code = 0
     while True:
         conn = mysql.connect()
         cursor = conn.cursor()
-	    sensor = type_sensor[code]
+        sensor = type_sensor[code]
 
         cursor.execute(
-            "select valor from sensors where nombre='temperature' order by time desc")
-        temperatura = int(cursor.fetchone()[0])
-        if temperatura != last_value[0]:
-            sensor = {"tipo": "temperatura", "valor": temperatura}
+            f"""SELECT valor FROM sensors WHERE nombre='{sensor}' order by time desc""")
+        value = int(cursor.fetchone()[0])
+        if value != last_value[code]:
+            sensor = {"tipo": sensor, "valor": value}
             data_json = json.dumps(sensor)
             print(sensor)
             yield 'data: %s\n\n' % str(data_json)
-            last_value[0] = temperatura
-            # flash('Actualizado sensor de temperatura')
-		if code >= 5: code = 0
-		else: code += 1
+            last_value[code] = value
+            # flash(f'Actualizado sensor de {sensor}')
+        if code >= 4:
+            code = 0
+            """ Si no hago la pausa la BBDD me echa """
+            time.sleep(1)
+        else:
+            code += 1
 
 
 @app.route('/update_sensor')
