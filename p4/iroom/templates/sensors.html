@@ -27,6 +27,18 @@
            		document.getElementById('cm').innerHTML = "Movimiento: " + obj.valor;
         	 	document.getElementById('motion').setAttribute('value', obj.valor);
         	};
+        	if (obj.tipo == 'red') {
+           		document.getElementById('cr').innerHTML = "Rojo: " + obj.valor;
+        	 	document.getElementById('red').setAttribute('value', obj.valor);
+        	};
+        	if (obj.tipo == 'green') {
+				document.getElementById('cg').innerHTML = "Verde: " + obj.valor;
+				document.getElementById('green').setAttribute('value', obj.valor);
+        	};
+			if (obj.tipo == 'blue') {
+				   document.getElementById('cb').innerHTML = "Azul: " + obj.valor;
+				 document.getElementById('blue').setAttribute('value', obj.valor);
+			};
     	};
     
 	</script>
@@ -42,6 +54,9 @@
   		 <div id="cl"></div> <meter id="light" value="0" min="0" max="100" low="18" high="26"></meter> 
   		 <div id="cs"></div> <meter id="sound" value="0" min="0" max="100" low="18" high="26"></meter> 
   		 <div id="cm"></div> <meter id="motion" value="0" min="0" max="1" low="0" high="1"></meter> 
+  		 <div id="cr"></div> <meter id="red" value="0" min="0" max="255"></meter> 
+  		 <div id="cg"></div> <meter id="green" value="0" min="0" max="255"></meter> 
+  		 <div id="cb"></div> <meter id="blue" value="0" min="0" max="255"></meter> 
    </div>
  
   </div>	

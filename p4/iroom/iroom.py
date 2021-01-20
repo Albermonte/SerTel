@@ -14,8 +14,8 @@ app.config.from_object(__name__)
 app.config.from_envvar('IROOM_SETTINGS', silent=True)
 mysql.init_app(app)
 type_sensor = ['temperature', 'humidity', 'light',
-               'sound', 'motion', 'red', 'blue', 'green']
-last_value = [0, 0, 0, 0, 0]
+               'sound', 'motion', 'red', 'green', 'blue']
+last_value = [0, 0, 0, 0, 0, 0, 0, 0]
 
 
 def event_sensor():
@@ -35,7 +35,7 @@ def event_sensor():
             yield 'data: %s\n\n' % str(data_json)
             last_value[code] = value
             # flash(f'Actualizado sensor de {sensor}')
-        if code >= 4:
+        if code >= 7:
             code = 0
             """ Si no hago la pausa la BBDD me echa """
             time.sleep(1)
@@ -88,9 +88,28 @@ def iluminacion():
 @app.route('/setcolor', methods=['GET'])
 def setcolor():
     """
-            PARTE 3: INSERTE AQUI EL CÓDIGO PARA GUARDAR EL COLOR DE LA BASE DE DATOS 
+            PARTE 3: INSERTE AQUI EL CÓDIGO PARA GUARDAR EL COLOR DE LA BASE DE DATOS
             CUANDO SE RECIBE DESDE EL CLIENTE POR AJAX
     """
+    success = True
+    try:
+        conn = mysql.connect()
+        cursor = conn.cursor()
+
+        color = request.args.get('color')
+        red = int('0x' + color[1:3], 16)
+        green = int('0x' + color[3:5], 16)
+        blue = int('0x' + color[5:7], 16)
+        colors = {'red': red, 'green': green, 'blue': blue}
+        for code in colors:
+            cursor.execute(
+                """INSERT INTO sensors(nombre, valor) values(%s, %s)""", (code, colors[code]))
+            conn.commit()
+    except ValueError:
+        success = False
+        print("Something went wrong")
+    finally:
+        return jsonify(success)
 
 
 if __name__ == '__main__':

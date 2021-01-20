@@ -36,6 +36,7 @@ def updateSensor(code):
             last_value[code] = value
             cursor.execute(
                 """INSERT INTO sensors(nombre, valor) values(%s, %s)""", (sensor, value))
+            # print(sensor + ' ' + str(value))
             db.commit()
 
         except ValueError:
@@ -51,7 +52,7 @@ def controlLightColor(code):
         value = int(cursor.fetchone()[0])
         if (value != last_value[code]):
             last_value[code] = value
-            # print(sensor + ': ' + str(value))
+            print(sensor + ': ' + str(value))
             response = http.request('PUT', server + sensor + '/' + str(value))
     except ValueError:
         print('Error al consultar de base de datos o conectar con iroom')
