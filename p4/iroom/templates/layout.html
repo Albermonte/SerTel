@@ -1,24 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <title>Sensores de Iroom</title>
-<link rel=stylesheet href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+<link
+	href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap"
+	rel="stylesheet"
+/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js"></script>
 {% block head %}{% endblock %}
 
-<div class=page>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <center><h1>IROOM</h1></center>
-  <div class=metanav>
-  {% if not session.logged_in %}
-    <a href="{{ url_for('login') }}"> <button>Entrar </button></a>
-  {% else %}
-    <a href="{{ url_for('sensors') }}">   <button>Sensores</button></a>
-    <a href="{{ url_for('iluminacion') }}">   <button>Iluminación</button></a>
-    <a href="{{ url_for('logout') }}">   <button>Salir</button></a>
-    
-  {% endif %}
-  </div>
-  {% for message in get_flashed_messages() %}
-    <div class=flash>{{ message }}</div>
-  {% endfor %}
-  {% block body %}{% endblock %}
+<div class="page">
+	<center><h1>IROOM</h1></center>
+	<div class="metanav">
+		{% if not session.logged_in %}
+		<a href="{{ url_for('login') }}"> <button>Entrar</button></a>
+		{% else %}
+		<a href="{{ url_for('sensorsChart') }}">
+			<button>Histórico de Sensores</button></a
+		>
+		<a href="{{ url_for('sensors') }}"> <button>Sensores</button></a>
+		<a href="{{ url_for('iluminacion') }}"> <button>Iluminación</button></a>
+		<a href="{{ url_for('logout') }}"> <button>Salir</button></a>
 
+		{% endif %}
+	</div>
+	{% for message in get_flashed_messages() %}
+	<div class="flash">{{ message }}</div>
+	{% endfor %} {% block body %}{% endblock %}
 </div>

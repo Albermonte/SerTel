@@ -58,6 +58,11 @@ def sensors():
     return render_template('sensors.html')
 
 
+@app.route('/sensorsChart')
+def sensorsChart():
+    return render_template('sensorsChart.html')
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
