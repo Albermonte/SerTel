@@ -1,64 +1,76 @@
 {% extends "layout.html" %}
 {% block head %}
-	{% if session.logged_in %}  
-   
-    <script type="text/javascript">
-		var sse = new EventSource("/update_sensor");
-    	sse.onmessage = function(event) {
-    		var sensor = event.data;
-			obj = JSON.parse(sensor)
-    	  	if (obj.tipo == 'temperature') {
-           		document.getElementById('ct').innerHTML = "Temperatura: "+obj.valor;
-        	 	document.getElementById('temperature').setAttribute('value', obj.valor);
-        	};
-        	if (obj.tipo == 'humidity') {
-           		document.getElementById('ch').innerHTML = "Humedad: "+obj.valor;
-        	 	document.getElementById('humidity').setAttribute('value', obj.valor);
-        	};
-        	if (obj.tipo == 'light') {
-				    document.getElementById('cl').innerHTML = "Nivel de Luz: "+obj.valor;
-        	 	document.getElementById('light').setAttribute('value', obj.valor);
-        	};
-        	if (obj.tipo == 'sound') {
-           		document.getElementById('cs').innerHTML = "Nivel de sonido: "+obj.valor;
-        	 	document.getElementById('sound').setAttribute('value', obj.valor);
-        	};
-        	if (obj.tipo == 'motion') {
-           		document.getElementById('cm').innerHTML = "Movimiento: " + obj.valor;
-        	 	document.getElementById('motion').setAttribute('value', obj.valor);
-        	};
-        	if (obj.tipo == 'red') {
-           		document.getElementById('cr').innerHTML = "Rojo: " + obj.valor;
-        	 	document.getElementById('red').setAttribute('value', obj.valor);
-        	};
-        	if (obj.tipo == 'green') {
-				document.getElementById('cg').innerHTML = "Verde: " + obj.valor;
-				document.getElementById('green').setAttribute('value', obj.valor);
-        	};
-			if (obj.tipo == 'blue') {
-				   document.getElementById('cb').innerHTML = "Azul: " + obj.valor;
-				 document.getElementById('blue').setAttribute('value', obj.valor);
-			};
-    	};
-    
-	</script>
-  {% endif%}
+{% if session.logged_in %}
+
+<script type="text/javascript">
+	window.addEventListener('load', () => {
+		document.getElementById('ct').innerHTML = "Temperatura: 0";
+		document.getElementById('ch').innerHTML = "Humedad: 0"
+		document.getElementById('cl').innerHTML = "Nivel de Luz: 0"
+		document.getElementById('cs').innerHTML = "Nivel de sonido: 0";
+		document.getElementById('cm').innerHTML = "Movimiento: 0";
+		document.getElementById('cr').innerHTML = "Rojo: 0";
+		document.getElementById('cg').innerHTML = "Verde: 0";
+		document.getElementById('cb').innerHTML = "Azul: 0";
+	})
+
+
+	var sse = new EventSource("/update_sensor");
+	sse.onmessage = function (event) {
+		var sensor = event.data;
+		obj = JSON.parse(sensor)
+		if (obj.tipo == 'temperature') {
+			document.getElementById('ct').innerHTML = "Temperatura: " + obj.valor;
+			document.getElementById('temperature').setAttribute('value', obj.valor);
+		};
+		if (obj.tipo == 'humidity') {
+			document.getElementById('ch').innerHTML = "Humedad: " + obj.valor;
+			document.getElementById('humidity').setAttribute('value', obj.valor);
+		};
+		if (obj.tipo == 'light') {
+			document.getElementById('cl').innerHTML = "Nivel de Luz: " + obj.valor;
+			document.getElementById('light').setAttribute('value', obj.valor);
+		};
+		if (obj.tipo == 'sound') {
+			document.getElementById('cs').innerHTML = "Nivel de sonido: " + obj.valor;
+			document.getElementById('sound').setAttribute('value', obj.valor);
+		};
+		if (obj.tipo == 'motion') {
+			document.getElementById('cm').innerHTML = "Movimiento: " + obj.valor;
+			document.getElementById('motion').setAttribute('value', obj.valor);
+		};
+		if (obj.tipo == 'red') {
+			document.getElementById('cr').innerHTML = "Rojo: " + obj.valor;
+			document.getElementById('red').setAttribute('value', obj.valor);
+		};
+		if (obj.tipo == 'green') {
+			document.getElementById('cg').innerHTML = "Verde: " + obj.valor;
+			document.getElementById('green').setAttribute('value', obj.valor);
+		};
+		if (obj.tipo == 'blue') {
+			document.getElementById('cb').innerHTML = "Azul: " + obj.valor;
+			document.getElementById('blue').setAttribute('value', obj.valor);
+		};
+	};
+
+</script>
+{% endif%}
 {% endblock %}
 {% block body %}
 
-  {% if session.logged_in %}
-    <div id="sensores">
-    <h2>Sensores</h2>
-  		 <div id="ct"></div> <meter id="temperature" value="0" min="0" max="50" low="18" high="26"></meter> 
-  		 <div id="ch"></div> <meter id="humidity" value="0" min="0" max="100" low="18" high="26"></meter> 
-  		 <div id="cl"></div> <meter id="light" value="0" min="0" max="100" low="18" high="26"></meter> 
-  		 <div id="cs"></div> <meter id="sound" value="0" min="0" max="100" low="18" high="26"></meter> 
-  		 <div id="cm"></div> <meter id="motion" value="0" min="0" max="1" low="0" high="1"></meter> 
-  		 <div id="cr"></div> <meter id="red" value="0" min="0" max="255"></meter> 
-  		 <div id="cg"></div> <meter id="green" value="0" min="0" max="255"></meter> 
-  		 <div id="cb"></div> <meter id="blue" value="0" min="0" max="255"></meter> 
-   </div>
- 
-  </div>	
-  {% endif%}	   
+{% if session.logged_in %}
+<div id="sensores">
+	<h2>Sensores</h2>
+	<div id="ct"></div> <meter id="temperature" value="0" min="0" max="50" low="18" high="26"></meter>
+	<div id="ch"></div> <meter id="humidity" value="0" min="0" max="100" low="18" high="26"></meter>
+	<div id="cl"></div> <meter id="light" value="0" min="0" max="100" low="18" high="26"></meter>
+	<div id="cs"></div> <meter id="sound" value="0" min="0" max="100" low="18" high="26"></meter>
+	<div id="cm"></div> <meter id="motion" value="0" min="0" max="1" low="0" high="1"></meter>
+	<div id="cr"></div> <meter id="red" value="0" min="0" max="255"></meter>
+	<div id="cg"></div> <meter id="green" value="0" min="0" max="255"></meter>
+	<div id="cb"></div> <meter id="blue" value="0" min="0" max="255"></meter>
+</div>
+
+</div>
+{% endif%}
 {% endblock %}
